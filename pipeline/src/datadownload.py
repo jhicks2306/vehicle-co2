@@ -346,3 +346,5 @@ if __name__ == "__main__":
 
     # Create DuckDB database
     init_duckdb(db_file_path, tables)
+
+    print(f'Data downloaded and saved in DuckDB database: {db_file_path}')
