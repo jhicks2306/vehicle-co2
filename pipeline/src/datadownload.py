@@ -141,10 +141,17 @@ def rename_columns(df):
                     .str.replace('(', '')
                     .str.replace(')', '')
                     .str.replace('/', '_')
+                    .str.replace('fuel_consumption_', '')
+                    .str.replace('consumption_', '')
+                    .str.replace('_le_', '_l_')
+                    .str.replace('city_l_100_km', 'consumption_city_l_100_km')
+                    .str.replace('comb_l_100_km', 'consumption_comb_l_100_km')
+                    .str.replace('hwy_l_100_km', 'consumption_hwy_l_100_km')
     )
 
     col_mapper = dict(list(zip(df.columns, cleaned_cols))) # build a dictionary to map old column names to new
     df.rename(columns=col_mapper, inplace=True)
+
     return df  
 
 # %% datadownload.ipynb 7
@@ -182,6 +189,9 @@ def clean_content(df):
 
     df['transmission_type'] = df['transmission_type'].map(transmission_dict)
     df.drop(columns='transmission', inplace=True)
+
+    df.reset_index()
+    df['id'] = df.index
 
     return df
 
@@ -286,8 +296,8 @@ if __name__ == "__main__":
     
     # Download and save raw data for each resource
     for idx, row in resources_df.iterrows():
-        url = row[1]
-        file_name = row[2]
+        url = row.iloc[1]
+        file_name = row.iloc[2]
         raw_file_name = raw_path / f'{file_name}.csv'
         merged_header_file_name = merged_header_path / f'{file_name}.csv'
         extract_raw_data(url, raw_file_name)
