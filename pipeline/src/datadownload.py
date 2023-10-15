@@ -9,7 +9,6 @@ from pathlib import Path
 import requests
 import csv
 from io import StringIO
-from rich import inspect
 import pandas as pd
 import json
 import duckdb
@@ -282,8 +281,8 @@ if __name__ == "__main__":
     
     # Build raw data file path
     path = Path.cwd()
-    raw_path = path.parent / 'data' / 'raw'
-    merged_header_path = path.parent / 'data' / 'merged-headers'
+    raw_path = path / 'pipeline' / 'data' / 'raw'
+    merged_header_path = path / 'pipeline' / 'data' / 'merged-headers'
     
     # Download and save raw data for each resource
     for idx, row in resources_df.iterrows():
@@ -301,8 +300,8 @@ if __name__ == "__main__":
     # Build the master DataFrame
     for idx, row in resources_df.iterrows():
         # Open each csv file
-        url = row[1]
-        file_name = row[2]
+        url = row.iloc[1]
+        file_name = row.iloc[2]
         merged_header_file_name = merged_header_path / f'{file_name}.csv'
     
         # Rename the columns
@@ -339,7 +338,7 @@ if __name__ == "__main__":
     tables = {'all_vehicles' : 'master_df', 'electric' : 'electric_df', 'hybrid' : 'hybrid_df', 'fuel' : 'fuel_df'}
     
     # Create directory for DuckDB database 
-    db_path = path / 'data' / 'database'
+    db_path = path / 'pipeline' / 'data' / 'database'
     Path(db_path).mkdir(parents=True, exist_ok=True)
     # Create file path for DuckDB database
     db_file_path = str(db_path / 'car_data.duckdb')

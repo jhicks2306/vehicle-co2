@@ -12,4 +12,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
 # Execute pipeline
-CMD ["python", "./src/datadownload.py"]
+CMD ["python", "pipeline/src/datadownload.py"]

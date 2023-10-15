@@ -1,6 +1,6 @@
 certifi==2023.7.22
 charset-normalizer==3.3.0
-duckdb==0.8.1
+duckdb==0.9.1
 duckdb-engine==0.9.1
 greenlet==3.0.0
 idna==3.4
