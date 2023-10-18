@@ -1,5 +1,5 @@
 # Use the official Python image as the base image
-FROM python:3.10
+FROM python:3.11
 
 # Set the working directory
 WORKDIR /app
@@ -17,7 +17,7 @@ EXPOSE 8000
 # Install ploomber
 RUN pip install ploomber
 
-# Remove files ending in .metadata from the notebooks folder
-RUN find notebooks -type f -name "*.metadata" -exec rm -f {} \;
+# Remove files ending in .metadata from the products folder
+RUN find ./pipeline/products -type f -name "*.metadata" -exec rm -f {} \;
 
 RUN ploomber build
