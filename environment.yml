@@ -1,0 +1,27 @@
+name: sql-course
+channels:
+  - conda-forge
+dependencies:
+  - matplotlib
+  - seaborn
+  - numpy
+  - keyring
+  - pandas
+  - python-duckdb
+  - python-dotenv
+  - ploomber
+  - pip
+  - ipywidgets
+  - pip:
+    - pandas==2.0.3
+    - jupyter-book
+    - pkgmt>=0.1.7
+    - duckdb==0.9.1
+    - duckdb-engine==0.9.1
+    - jupysql-plugin==0.1.9
+    - jupysql==0.10.0
+    - urllib3==1.26.6
+    - voila==0.4.1
+    - itables==1.5.3
+    - voila-gridstack==0.3.1
+    - plotly==5.15.0
