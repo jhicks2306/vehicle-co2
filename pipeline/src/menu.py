@@ -1,4 +1,4 @@
-from ipywidgets import widgets, Vbox, HBox
+from ipywidgets import widgets, VBox, HBox
 import pandas as pd
 import numpy as pd
 
@@ -33,7 +33,7 @@ def setup_menu(
     tab : ipywidgets.Tab
         tab object containing the menu"""
     
-    tab3 = Vbox(
+    tab3 = VBox(
         children=[
             HBox(children=[widget_vehicle_type, widget_year]),
             HBox(children=[widget_vehicle_class, widget_make]),
@@ -149,7 +149,7 @@ def select_table(vehicle_type, year, vehicle_class, make, co2):
                 make,
                 model,
                 vehicle_class,
-                vehicle_type
+                vehicle_type,
                 co2_rating,
             FROM all_vehicles
             WHERE model_year = {year}
