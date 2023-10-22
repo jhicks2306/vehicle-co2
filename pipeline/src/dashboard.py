@@ -174,3 +174,120 @@ class Seaborn_Scatter:
         plt.title(f"Scatter plot of electic vehicle range and recharge to by {hue}")
         plt.xlabel("Recharge time (hrs)")
         plt.ylabel("Range (km)")
+
+class Histogram_ggplot:
+    """
+    This class creates a widget to select the column to be plotted.
+    
+    Mathods
+    -------
+    create_intslider()
+        Creates a widget to selet the number of bins
+    create_dropdown()
+        Creates a widget to select the number of bins.
+    create_radio_button()
+        Creates a widget to select the column to be plotted.
+    co2_histogram(b, cmap, fill)
+        Draws a histgram of the CO2 emissions by column.
+    
+    """
+
+    def __init__(self):
+        self.create_intslider()
+        self.create_dropdown()
+        self.create_radio_button()
+    
+    def create_intslider(self):
+        self.intslider = widgets.IntSlider(
+            value=10,
+            min=1,
+            max=20,
+            step=1,
+            description="Bins:",
+            orientation="horizontal",
+        )
+    
+    def create_dropdown(self):
+        self.dropdown = widgets.Dropdown(
+            options=["viridis", "plasma", "inferno", "magma", "cividis"],
+            value="plasma",
+            description="Colormap:",
+            disabled=False,
+        )
+
+    def create_radio_button(self):
+        self.radio_button = widgets.RadioButtons(
+            options=["vehicle_type", "fuel_type"],
+            description="Fill by:",
+            disabled=False,
+        )
+
+    def co2_histogram(self, b, cmap, fill):
+        """
+        Draws a histgram of the CO2 emissions by column.
+        
+        Parameters
+        ----------
+        b : int
+            Number of bins.
+        cmap : str
+            Colormap.
+        fill : str
+            Column to be plotted.
+        """
+        (
+            ggplot(
+                table="hist_co2",
+                with_="hist_co2",
+                mapping=aes(x="co2_emissions_g_km")
+
+            )
+            + geom_histogram(bins=b, fill=fill, cmap=cmap)
+        )
+
+class Seaborn_Boxplot:
+    """
+    This class creates a dropdown widget to select the hue of the boxplot.
+    
+    Attributes
+    ----------
+    co2_usa : DataFrame
+        dataframe contained the CO2 emissions by US car make, gas and hybrid.
+    
+    Methods
+    -------
+    create_dropdown()
+        Creates a dropdown widget to select the hue of the boxplot.
+    draw_boxplot_usa(hue)
+        Draws a boxplot of the CO2 emissions by US car make, gasm and hybrid run by hue.
+    """
+
+    def __init__(self, co2_usa):
+        self.co2_usa = co2_usa
+        self.create_dropdown()
+    
+    def create_dropdown(self):
+        self.dropdown = widgets.Dropdown(
+            options=["vehicle_type", "transmission_type", None],
+            description="(Un)select hue:",
+            disabled=False,
+            style=style,
+        )
+
+    def draw_boxplot_usa(self, hue):
+        """
+        Draws a boxplot of the CO2 emissions by US car make, gas, and hybrid run by hue.
+        
+        Parameters
+        ----------
+        hue : str
+            Column to be plotted.
+        """
+        plt.figure(figsize=(15,6), dpi=100)
+        sns.boxplot(
+            data=self.co2_usa, x="make", y="co2_emissions_g_km", hue=hue,
+        )
+        plt.xticks(rotation=90)
+        plt.xlabel("Car make")
+        plt.ylabel("CO2 emissions (g/km)")
+        plt.title("CO2 emissions (g/km) by gas and hybrid run US car brands")
