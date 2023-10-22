@@ -43,7 +43,7 @@ class Seaborn_Barplot:
         sns.set()
         plt.figure(figsize=(10,5), dpi=120)
 
-        if data == "fuel-count":
+        if data == "fuel_count":
             sns.barplot(
                 data=self.fuel_count,
                 x="model_year",
@@ -71,7 +71,7 @@ class Seaborn_Barplot:
                 x="model_year",
                 y="num_vehicles",
                 hue="vehicle_type",
-                palette={"hybrid": "blue", "electirc": "green"},
+                palette={"hybrid": "blue", "electric": "green"},
                 width=0.4
             )
             sns.pointplot(
