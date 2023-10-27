@@ -63,7 +63,7 @@ class Seaborn_Barplot:
             plt.xlabel("Car model year")
             plt.ylabel("Count")
             plt.xticks(rotation=45)
-            plt.title("Count of unqiue fuel-only cars by model year")
+            plt.title("Count of unique fuel-only cars by model year")
 
         else:
             sns.barplot(
@@ -130,7 +130,7 @@ class Boxplot_ggplot:
                 with_="boxplot_fuel_consum",
                 mapping=aes(x=columns),
             )
-            + geom_boxplot
+            + geom_boxplot()
         )
     
 class Seaborn_Scatter:
@@ -168,7 +168,7 @@ class Seaborn_Scatter:
         sns.scatterplot(
             data=self.electric_range,
             x="recharge_time_h",
-            y="range_1_km",
+            y="range_km",
             hue=hue,
         )
         plt.title(f"Scatter plot of electic vehicle range and recharge to by {hue}")
